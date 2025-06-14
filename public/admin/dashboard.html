@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Princess Hotels</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-dashboard">
+        <aside class="admin-sidebar">
+            <h2>Admin Panel</h2>
+            <ul class="admin-nav">
+                <li><a href="dashboard.html" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="items.html"><i class="fas fa-utensils"></i> Manage Items</a></li>
+                <li><a href="outlets.html"><i class="fas fa-store"></i> Manage Outlets</a></li>
+                <li><a href="users.html"><i class="fas fa-users"></i> Manage Users</a></li>
+                <li><a href="import-items.html"><i class="fas fa-upload"></i> Import Items</a></li>
+                <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </aside>
+
+        <main class="admin-content">
+            <div class="admin-header">
+                <h1>Dashboard</h1>
+                <button class="logout-btn" id="logoutBtn">Logout</button>
+            </div>
+
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Total Items</h3>
+                    <p id="totalItems">Loading...</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-store"></i>
+                    <h3>Total Outlets</h3>
+                    <p id="totalOutlets">Loading...</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Total Users</h3>
+                    <p id="totalUsers">Loading...</p>
+                </div>
+            </div>
+
+            <div class="recent-items">
+                <h2>Recent Items</h2>
+                <div class="items-grid" id="recentItems">
+                    <!-- Recent items will be loaded here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/admin/dashboard.js"></script>
+</body>
+</html> 
