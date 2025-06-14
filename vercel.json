@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "cleanUrls": true,
+  "outputDirectory": "public",
   "builds": [
     {
       "src": "server.js",
@@ -12,7 +12,7 @@
           "middleware/**",
           ".env",
           "scripts/**",
-          "public/uploads/**"
+          "public/uploads/**" 
         ]
       }
     }
@@ -23,8 +23,8 @@
       "dest": "server.js"
     },
     {
-      "src": "/(.*)",
-      "dest": "/public/$1"
+      "src": "/uploads/(.*)",
+      "dest": "server.js"
     }
   ]
 } 
