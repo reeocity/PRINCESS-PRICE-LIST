@@ -26,13 +26,26 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Serve assets directory
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
-// MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/princess-hotels', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-.then(() => console.log('MongoDB Connected'))
-.catch(err => console.log('MongoDB Connection Error:', err));
+// MongoDB Connection with better error handling
+const connectDB = async () => {
+    try {
+        const conn = await mongoose.connect(process.env.MONGODB_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+        console.log(`MongoDB Connected: ${conn.connection.host}`);
+    } catch (error) {
+        console.error('MongoDB Connection Error:', error);
+        // Log the connection string (without password) for debugging
+        const uri = process.env.MONGODB_URI;
+        const sanitizedUri = uri ? uri.replace(/\/\/[^:]+:[^@]+@/, '//****:****@') : 'not set';
+        console.error('Connection string:', sanitizedUri);
+        process.exit(1); // Exit with failure
+    }
+};
+
+// Connect to MongoDB
+connectDB();
 
 console.log('Mounting API routes...');
 // Routes
