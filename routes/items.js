@@ -6,30 +6,24 @@ const adminAuth = require('../middleware/adminAuth');
 const multer = require('multer');
 const path = require('path');
 const xlsx = require('xlsx');
-const fs = require('fs');
-const mongoose = require('mongoose');
+//const fs = require('fs');
+//const mongoose = require('mongoose');
 
-// Ensure assets directory exists
-const assetsDir = path.join(__dirname, '../assets');
-if (!fs.existsSync(assetsDir)) {
-    fs.mkdirSync(assetsDir, { recursive: true });
-}
+// Remove asset directory creation - no local image storage on Vercel
 
-// Multer setup for image upload
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, assetsDir);
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname));
-    }
-});
-const upload = multer({ storage });
+// Multer setup for image upload (using memoryStorage as we will upload to Cloudinary)
+const upload = multer({ storage: multer.memoryStorage() });
 
-// Set up multer for file uploads
+// Set up multer for Excel file uploads (still temporarily saved to disk for parsing, then unlinked)
 const excelStorage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'public/uploads/items'); // Save uploaded Excel files here temporarily
+        // Ensure this directory exists on your local machine for development if needed
+        // On Vercel, this is a temporary write, and the file is immediately deleted
+        const tempUploadDir = path.join(__dirname, '../public/uploads/temp_excel');
+        if (!fs.existsSync(tempUploadDir)) {
+            fs.mkdirSync(tempUploadDir, { recursive: true });
+        }
+        cb(null, tempUploadDir);
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + '-' + file.originalname);
@@ -74,8 +68,14 @@ router.get('/:id', async (req, res) => {
 router.post('/', adminAuth, upload.single('image'), async (req, res) => {
     try {
         const { name, description, category, outletPrices } = req.body;
-        if (!name || !description || !category || !outletPrices || !req.file) {
-            return res.status(400).json({ message: 'All fields and image are required.' });
+
+        // Image validation: req.file should exist if an image was uploaded
+        if (!req.file) {
+            return res.status(400).json({ message: 'Image file is required.' });
+        }
+
+        if (!name || !description || !category || !outletPrices) {
+            return res.status(400).json({ message: 'Name, description, category, and outlet prices are required.' });
         }
 
         const parsedOutletPrices = JSON.parse(outletPrices);
@@ -83,13 +83,18 @@ router.post('/', adminAuth, upload.single('image'), async (req, res) => {
             return res.status(400).json({ message: 'At least one outlet price is required.' });
         }
 
+        // Cloudinary upload logic will go here
+        // For now, let's just use a placeholder image path
+        const imageUrl = 'https://via.placeholder.com/150'; // Replace with actual Cloudinary URL
+
         const item = new Item({
             name,
             description,
             category,
             outletPrices: parsedOutletPrices,
-            image: '/assets/' + req.file.filename
+            image: imageUrl 
         });
+
         await item.save();
         res.status(201).json({ message: 'Item created!', item });
     } catch (err) {
@@ -113,15 +118,10 @@ router.put('/:id', adminAuth, upload.single('image'), async (req, res) => {
         }
 
         if (req.file) {
-            // Delete old image if it exists
-            const oldItem = await Item.findById(req.params.id);
-            if (oldItem && oldItem.image) {
-                const oldImagePath = path.join(__dirname, '..', oldItem.image);
-                if (fs.existsSync(oldImagePath)) {
-                    fs.unlinkSync(oldImagePath);
-                }
-            }
-            updateData.image = '/assets/' + req.file.filename;
+            // Cloudinary upload logic for updates will go here
+            // For now, let's just use a placeholder image path
+            updateData.image = 'https://via.placeholder.com/150'; // Replace with actual Cloudinary URL
+            // No local file deletion needed for Cloudinary
         }
 
         const item = await Item.findByIdAndUpdate(
