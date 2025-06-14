@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Outlets - Princess Hotels Admin</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-dashboard">
+        <aside class="admin-sidebar">
+            <h2>Admin Panel</h2>
+            <ul class="admin-nav">
+                <li><a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="items.html"><i class="fas fa-utensils"></i> Manage Items</a></li>
+                <li><a href="outlets.html" class="active"><i class="fas fa-store"></i> Manage Outlets</a></li>
+                <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </aside>
+        <main class="admin-content">
+            <div class="admin-header">
+                <h1>Manage Outlets</h1>
+                <button class="logout-btn" id="logoutBtn">Logout</button>
+            </div>
+            <section>
+                <form id="addOutletForm" enctype="multipart/form-data">
+                    <h2>Add New Outlet</h2>
+                    <div class="form-row"><input type="text" id="outletName" placeholder="Name" required></div>
+                    <div class="form-row"><input type="text" id="outletDescription" placeholder="Description" required></div>
+                    <div class="form-row"><input type="text" id="outletOpeningHours" placeholder="Opening Hours" required></div>
+                    <div class="form-row"><input type="text" id="outletLocation" placeholder="Location" required></div>
+                    <div class="form-row"><input type="file" id="outletImage" accept="image/*" required></div>
+                    <button type="submit">Add Outlet</button>
+                </form>
+            </section>
+            <section>
+                <h2>All Outlets</h2>
+                <div id="outletsList" class="outlets-grid"></div>
+            </section>
+        </main>
+    </div>
+    <script src="../js/admin/outlets.js"></script>
+</body>
+</html> 

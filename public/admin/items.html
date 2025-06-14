@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Items - Princess Hotels Admin</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-dashboard">
+        <aside class="admin-sidebar">
+            <h2>Admin Panel</h2>
+            <ul class="admin-nav">
+                <li><a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="items.html" class="active"><i class="fas fa-utensils"></i> Manage Items</a></li>
+                <li><a href="outlets.html"><i class="fas fa-store"></i> Manage Outlets</a></li>
+                <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </aside>
+        <main class="admin-content">
+            <div class="admin-header">
+                <h1>Manage Items</h1>
+                <button class="btn add-new-item-btn" onclick="toggleAddItemForm()">Add New Item</button>
+                <button class="btn delete-all-items-btn" id="purgeItemsBtn" style="background-color: #dc3545;">Purge All Items</button>
+            </div>
+            <section>
+                <form id="addItemForm" enctype="multipart/form-data">
+                    <h2>Add New Item</h2>
+                    <input type="text" id="itemName" placeholder="Name" required>
+                    <input type="text" id="itemDescription" placeholder="Description" required>
+                    <input type="text" id="itemCategory" placeholder="Category" required>
+                    <div id="outletPricesContainer">
+                        <h3>Outlet Prices</h3>
+                        <div id="outletPricesList"></div>
+                        <button type="button" id="addOutletPrice">Add Another Outlet Price</button>
+                    </div>
+                    <input type="file" id="itemImage" accept="image/*" required>
+                    <button type="submit">Add Item</button>
+                </form>
+            </section>
+            <section>
+                <h2>All Items</h2>
+                <div id="itemsList"></div>
+            </section>
+        </main>
+    </div>
+    <script src="../js/admin/items.js"></script>
+</body>
+</html> 

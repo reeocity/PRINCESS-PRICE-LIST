@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Import Items - Admin</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">Princess Hotels Admin</h1>
+            <nav>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="/admin/dashboard.html">Dashboard</a></li>
+                    <li><a href="/admin/outlets.html">Manage Outlets</a></li>
+                    <li><a href="/admin/items.html">Manage Items</a></li>
+                    <li><a href="/admin/import-items.html" class="active">Import Items</a></li>
+                    <li><a href="#" id="logoutButton">Logout</a></li>
+                </ul>
+                <div class="burger" id="burger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="admin-main">
+        <div class="container">
+            <h2>Import Items from Excel</h2>
+            <div class="form-container">
+                <form id="importForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="excelFile">Upload Excel File:</label>
+                        <input type="file" id="excelFile" name="excelFile" accept=".xlsx, .xls" required>
+                    </div>
+                    <button type="submit" class="btn">Import Items</button>
+                </form>
+                <div id="message" class="message-area"></div>
+            </div>
+            <p class="guidelines">
+                Please ensure your Excel file has the following columns: "Item Name", "Price", and "Outlet/Location".
+                The "Outlet/Location" column should contain names that match existing outlets in the database (e.g., "Restaurant", "Pool Deck").
+            </p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Princess Hotels. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/admin/import-items.js"></script>
+    <script src="../js/admin/auth.js"></script>
+</body>
+</html> 
