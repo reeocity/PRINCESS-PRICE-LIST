@@ -6,12 +6,21 @@ const adminAuth = require('../middleware/adminAuth');
 const multer = require('multer');
 const path = require('path');
 const xlsx = require('xlsx');
-//const fs = require('fs');
-//const mongoose = require('mongoose');
+const fs = require('fs');
+const mongoose = require('mongoose');
+const cloudinary = require('cloudinary').v2;
+const DatauriParser = require('datauri/parser');
 
-// Remove asset directory creation - no local image storage on Vercel
+// Configure Cloudinary (ensure these are set as environment variables on Vercel)
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
-// Multer setup for image upload (using memoryStorage as we will upload to Cloudinary)
+const parser = new DatauriParser();
+
+// Multer setup for image upload (using memoryStorage for Cloudinary)
 const upload = multer({ storage: multer.memoryStorage() });
 
 // Set up multer for Excel file uploads (still temporarily saved to disk for parsing, then unlinked)
@@ -69,7 +78,6 @@ router.post('/', adminAuth, upload.single('image'), async (req, res) => {
     try {
         const { name, description, category, outletPrices } = req.body;
 
-        // Image validation: req.file should exist if an image was uploaded
         if (!req.file) {
             return res.status(400).json({ message: 'Image file is required.' });
         }
@@ -83,23 +91,30 @@ router.post('/', adminAuth, upload.single('image'), async (req, res) => {
             return res.status(400).json({ message: 'At least one outlet price is required.' });
         }
 
-        // Cloudinary upload logic will go here
-        // For now, let's just use a placeholder image path
-        const imageUrl = 'https://via.placeholder.com/150'; // Replace with actual Cloudinary URL
+        // Upload image to Cloudinary
+        const fileBuffer = req.file.buffer;
+        const fileExtension = path.extname(req.file.originalname).toString();
+        const dataUri = parser.format(fileExtension, fileBuffer).content;
+
+        const cloudinaryResult = await cloudinary.uploader.upload(dataUri, {
+            folder: 'princess-hotels/items' // Specify a folder in Cloudinary
+        });
+
+        const imageUrl = cloudinaryResult.secure_url; // Get the secure URL from Cloudinary
 
         const item = new Item({
             name,
             description,
             category,
             outletPrices: parsedOutletPrices,
-            image: imageUrl 
+            image: imageUrl
         });
 
         await item.save();
         res.status(201).json({ message: 'Item created!', item });
     } catch (err) {
-        console.error('Error creating item:', err);
-        res.status(500).json({ message: 'Server error.' });
+        console.error('Error creating item with Cloudinary upload:', err);
+        res.status(500).json({ message: 'Server error.', error: err.message });
     }
 });
 
@@ -118,9 +133,15 @@ router.put('/:id', adminAuth, upload.single('image'), async (req, res) => {
         }
 
         if (req.file) {
-            // Cloudinary upload logic for updates will go here
-            // For now, let's just use a placeholder image path
-            updateData.image = 'https://via.placeholder.com/150'; // Replace with actual Cloudinary URL
+            // Upload new image to Cloudinary
+            const fileBuffer = req.file.buffer;
+            const fileExtension = path.extname(req.file.originalname).toString();
+            const dataUri = parser.format(fileExtension, fileBuffer).content;
+
+            const cloudinaryResult = await cloudinary.uploader.upload(dataUri, {
+                folder: 'princess-hotels/items'
+            });
+            updateData.image = cloudinaryResult.secure_url;
             // No local file deletion needed for Cloudinary
         }
 
@@ -133,8 +154,8 @@ router.put('/:id', adminAuth, upload.single('image'), async (req, res) => {
         if (!item) return res.status(404).json({ message: 'Item not found.' });
         res.json({ message: 'Item updated!', item });
     } catch (err) {
-        console.error('Error updating item:', err);
-        res.status(500).json({ message: 'Server error.' });
+        console.error('Error updating item with Cloudinary upload:', err);
+        res.status(500).json({ message: 'Server error.', error: err.message });
     }
 });
 
@@ -155,10 +176,20 @@ router.delete('/purge', adminAuth, async (req, res) => {
 router.delete('/:id', adminAuth, async (req, res) => {
     try {
         const item = await Item.findByIdAndDelete(req.params.id);
+
+        // Optional: Delete image from Cloudinary when item is deleted
+        if (item && item.image) {
+            // Extract public ID from Cloudinary URL
+            const publicId = item.image.split('/').pop().split('.')[0];
+            await cloudinary.uploader.destroy(`princess-hotels/items/${publicId}`);
+            console.log(`Deleted image ${publicId} from Cloudinary.`);
+        }
+
         if (!item) return res.status(404).json({ message: 'Item not found.' });
         res.json({ message: 'Item deleted.' });
     } catch (err) {
-        res.status(500).json({ message: 'Server error.' });
+        console.error('Error deleting item (and Cloudinary image):', err);
+        res.status(500).json({ message: 'Server error.', error: err.message });
     }
 });
 
