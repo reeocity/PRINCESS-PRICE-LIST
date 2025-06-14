@@ -31,11 +31,15 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/princess-
 .then(() => console.log('MongoDB Connected'))
 .catch(err => console.log('MongoDB Connection Error:', err));
 
+console.log('Mounting API routes...');
 // Routes
 app.use('/api/items', require('./routes/items'));
 app.use('/api/auth', require('./routes/auth'));
+console.log('/api/auth route mounted.');
 app.use('/api/outlets', require('./routes/outlets'));
+console.log('/api/outlets route mounted.');
 app.use('/api/users', require('./routes/users'));
+console.log('/api/users route mounted.');
 
 // Serve static assets in production
 /*
