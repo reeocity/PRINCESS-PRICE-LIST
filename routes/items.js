@@ -7,6 +7,7 @@ const multer = require('multer');
 const path = require('path');
 const xlsx = require('xlsx');
 const fs = require('fs');
+const mongoose = require('mongoose');
 
 // Ensure assets directory exists
 const assetsDir = path.join(__dirname, '../assets');
@@ -246,6 +247,33 @@ router.post('/import', adminAuth, excelUpload.single('excelFile'), async (req, r
     } catch (error) {
         console.error('Error importing items from Excel:', error);
         res.status(500).json({ message: 'Server error during import.', error: error.message });
+    }
+});
+
+// Test database connection
+router.get('/test-connection', async (req, res) => {
+    try {
+        const dbState = mongoose.connection.readyState;
+        const stateMap = {
+            0: 'disconnected',
+            1: 'connected',
+            2: 'connecting',
+            3: 'disconnecting'
+        };
+        
+        res.json({
+            status: 'success',
+            message: 'Database connection test',
+            connectionState: stateMap[dbState] || 'unknown',
+            readyState: dbState,
+            isConnected: dbState === 1
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: 'error',
+            message: 'Database connection test failed',
+            error: error.message
+        });
     }
 });
 
