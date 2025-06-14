@@ -4,17 +4,15 @@
   "builds": [
     {
       "src": "server.js",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": [
-          "models/**",
-          "routes/**",
-          "middleware/**",
-          ".env",
-          "scripts/**",
-          "public/uploads/**" 
-        ]
-      }
+      "use": "@vercel/node"
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "assets/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -23,8 +21,12 @@
       "dest": "server.js"
     },
     {
-      "src": "/uploads/(.*)",
-      "dest": "server.js"
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/public/$1"
     }
   ]
 } 

@@ -6,11 +6,18 @@ const adminAuth = require('../middleware/adminAuth');
 const multer = require('multer');
 const path = require('path');
 const xlsx = require('xlsx');
+const fs = require('fs');
+
+// Ensure assets directory exists
+const assetsDir = path.join(__dirname, '../assets');
+if (!fs.existsSync(assetsDir)) {
+    fs.mkdirSync(assetsDir, { recursive: true });
+}
 
 // Multer setup for image upload
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/uploads/items/');
+        cb(null, assetsDir);
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + path.extname(file.originalname));
@@ -80,11 +87,12 @@ router.post('/', adminAuth, upload.single('image'), async (req, res) => {
             description,
             category,
             outletPrices: parsedOutletPrices,
-            image: '/uploads/items/' + req.file.filename
+            image: '/assets/' + req.file.filename
         });
         await item.save();
         res.status(201).json({ message: 'Item created!', item });
     } catch (err) {
+        console.error('Error creating item:', err);
         res.status(500).json({ message: 'Server error.' });
     }
 });
@@ -104,7 +112,15 @@ router.put('/:id', adminAuth, upload.single('image'), async (req, res) => {
         }
 
         if (req.file) {
-            updateData.image = '/uploads/items/' + req.file.filename;
+            // Delete old image if it exists
+            const oldItem = await Item.findById(req.params.id);
+            if (oldItem && oldItem.image) {
+                const oldImagePath = path.join(__dirname, '..', oldItem.image);
+                if (fs.existsSync(oldImagePath)) {
+                    fs.unlinkSync(oldImagePath);
+                }
+            }
+            updateData.image = '/assets/' + req.file.filename;
         }
 
         const item = await Item.findByIdAndUpdate(
@@ -116,6 +132,7 @@ router.put('/:id', adminAuth, upload.single('image'), async (req, res) => {
         if (!item) return res.status(404).json({ message: 'Item not found.' });
         res.json({ message: 'Item updated!', item });
     } catch (err) {
+        console.error('Error updating item:', err);
         res.status(500).json({ message: 'Server error.' });
     }
 });
