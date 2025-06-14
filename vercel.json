@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "cleanUrls": true,
   "builds": [
     {
       "src": "server.js",
@@ -10,16 +11,20 @@
           "routes/**",
           "middleware/**",
           ".env",
-          "public/**",
-          "scripts/**"
+          "scripts/**",
+          "public/uploads/**"
         ]
       }
     }
   ],
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/api/(.*)",
       "dest": "server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/public/$1"
     }
   ]
 } 
