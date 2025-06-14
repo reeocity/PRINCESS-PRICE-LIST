@@ -1,41 +1,40 @@
 /* General Menu Page Styles */
 .menu-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Increased for larger items */
-    gap: 1.5rem; /* Increased gap */
-    padding: 2.5rem; /* Increased padding */
-    max-width: 1200px;
-    margin: 2rem auto;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Re-adjusted for balanced width */
+    gap: 2rem;
+    padding: 3rem;
+    margin: 0 auto;
 }
 
 .menu-item {
     background-color: #fff;
-    border-radius: 10px; /* Larger border-radius */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.18); /* Stronger shadow for more prominence */
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
     overflow: hidden;
     text-align: center;
     display: flex;
     flex-direction: column;
     cursor: pointer;
-    transition: transform 0.15s ease;
+    transition: transform 0.25s ease;
 }
 
 .menu-item:hover {
-    transform: translateY(-4px); /* More pronounced hover effect */
+    transform: translateY(-8px);
 }
 
 .menu-item img {
     width: 100%;
-    height: 180px; /* Increased fixed height for images */
-    object-fit: cover; /* Ensure image covers the area */
-    background-color: #f0f0f0; /* Slightly darker background for images */
-    border-bottom: 2px solid #ddd; /* Thicker border for bolder look */
-    padding: 10px; /* Increased padding around image */
-    box-shadow: inset 0 0 8px rgba(0,0,0,0.1); /* Inner shadow for depth */
+    height: 250px; /* Re-adjusted for balanced height */
+    object-fit: contain;
+    background-color: transparent;
+    border-bottom: 4px solid #bbb;
+    padding: 15px;
+    /* box-shadow: inset 0 0 15px rgba(0,0,0,0.2); Removed box shadow */
 }
 
 .menu-item-content {
-    padding: 1.2rem; /* Increased padding */
+    padding: 1.5rem;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -46,55 +45,57 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 0.8rem; /* Increased margin */
+    margin-bottom: 1rem;
 }
 
 .menu-item-title {
-    font-size: 1.15rem; /* Increased font size */
+    font-size: 1.5rem;
     font-weight: bold;
     color: #333;
     margin: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: normal; /* Allow text to wrap */
+    overflow: visible; /* Allow overflow to enable wrapping */
+    text-overflow: clip; /* No ellipsis when wrapping */
     width: 100%;
 }
 
 .menu-item-price {
-    font-size: 1.1rem; /* Increased font size */
+    font-size: 1.4rem;
     color: #e74c3c;
     font-weight: bold;
-    margin-top: 0.4rem; /* Increased top margin */
+    margin-top: 0.6rem;
 }
 
 /* Responsive adjustments for mobile */
 @media (max-width: 768px) {
     .menu-container {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* Increased grid for mobile */
-        gap: 1rem; /* Increased gap for mobile */
-        padding: 1rem; /* Increased padding for mobile */
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* Re-adjusted grid for mobile */
+        gap: 1.5rem;
+        padding: 2rem;
     }
 
     .menu-item {
-        border-radius: 8px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.15); /* Adjusted shadow */
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.25);
     }
 
     .menu-item img {
-        height: 140px; /* Increased image height for mobile */
-        padding: 8px;
+        height: 180px; /* Re-adjusted image height for mobile */
+        padding: 12px;
+        object-fit: contain;
+        background-color: transparent;
     }
 
     .menu-item-content {
-        padding: 0.8rem; /* Increased padding for mobile */
+        padding: 1.2rem;
     }
 
     .menu-item-title {
-        font-size: 1rem;
+        font-size: 1.3rem;
     }
 
     .menu-item-price {
-        font-size: 0.95rem;
-        margin-top: 0.25rem;
+        font-size: 1.2rem;
+        margin-top: 0.4rem;
     }
 } 

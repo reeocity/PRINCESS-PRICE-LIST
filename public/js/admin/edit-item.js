@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 itemDescriptionTextarea.value = item.description || '';
                 itemCategoryInput.value = item.category || '';
                 if (item.image) {
-                    currentImageElement.src = `/uploads/items/${item.image}`;
+                    currentImageElement.src = item.image;
                     currentImageElement.style.display = 'block';
                 } else {
                     currentImageElement.style.display = 'none';

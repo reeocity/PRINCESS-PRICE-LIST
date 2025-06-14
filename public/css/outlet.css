@@ -1,7 +1,8 @@
 /* Outlet Header */
-.outlets-header {
+.outlet-header {
     text-align: center;
-    padding: 4rem 2rem;
+    padding: 0;
+    margin-top: 80px; /* Explicitly push down by navbar height */
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../images/outlets-bg.jpg');
     background-size: cover;
     background-position: center;
@@ -9,12 +10,12 @@
     border-radius: 0 0 24px 24px;
 }
 
-.outlets-header h1 {
+.outlet-header h1 {
     font-size: 3rem;
     margin-bottom: 1rem;
 }
 
-.outlets-header p {
+.outlet-header p {
     font-size: 1.2rem;
     max-width: 600px;
     margin: 0 auto;
@@ -80,7 +81,7 @@
 
 /* Responsive Design for Outlets Page */
 @media (max-width: 768px) {
-    .outlets-header {
+    .outlet-header {
         padding: 1.5rem 1rem;
         border-radius: 0 0 12px 12px;
         position: relative;
@@ -88,13 +89,13 @@
         margin-bottom: 1rem;
     }
 
-    .outlets-header h1 {
+    .outlet-header h1 {
         font-size: 1.8rem;
         margin-bottom: 0.5rem;
         font-weight: 700;
     }
 
-    .outlets-header p {
+    .outlet-header p {
         font-size: 0.9rem;
         padding: 0 0.5rem;
     }
@@ -184,5 +185,83 @@
     footer .footer-section {
         width: 100%;
         text-align: center;
+    }
+}
+
+/* Menu Section Styles */
+.menu-section {
+    padding-top: 2rem;
+    padding-left: 2rem; 
+    padding-right: 2rem;
+    padding-bottom: 2rem;
+    max-width: 100%;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10; 
+    background-color: transparent;
+}
+
+.menu-categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+    margin-top: 0;
+    /* Removed position: sticky for debugging purposes */
+    top: auto; /* Ensure no fixed top value */
+    background-color: white;
+    z-index: 11; 
+    border: 2px solid red; /* Debug border */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Add shadow to make it pop */
+}
+
+.menu-items {
+    position: relative;
+    z-index: 1; 
+    margin-top: 1rem;
+}
+
+.category-btn {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 0.7rem 1.2rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: #555;
+    transition: all 0.2s ease;
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+.category-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.category-btn.active {
+    background-color: var(--primary-gold);
+    color: var(--dark-blue);
+    border-color: var(--primary-gold);
+}
+
+/* Add responsive styles for menu section */
+@media (max-width: 768px) {
+    .menu-section {
+        padding-top: 4rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .menu-categories {
+        top: 60px; /* Adjust for mobile header height */
+        padding: 0.5rem 0;
+        margin-bottom: 1rem;
+    }
+
+    .category-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
     }
 } 

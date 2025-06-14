@@ -42,6 +42,7 @@ function addOutletPrice(outlets) {
 }
 
 // Render all items
+// Render all items
 function renderItems(items) {
     const list = document.getElementById('itemsList');
     list.innerHTML = items.map(item => `

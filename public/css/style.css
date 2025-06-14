@@ -21,6 +21,7 @@ body {
     background: var(--gray);
     color: var(--dark-blue);
     line-height: 1.6;
+    padding-top: 80px;
 }
 
 /* Navigation */
@@ -28,7 +29,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.2rem 2rem;
+    padding: 0.8rem 2rem;
     background: var(--dark-blue);
     color: var(--white);
     box-shadow: 0 2px 8px rgba(27,43,68,0.1);
@@ -43,7 +44,7 @@ body {
     font-weight: 700;
     letter-spacing: 2px;
     margin: 0;
-    font-size: 2rem;
+    font-size: 1.8rem;
 }
 
 .nav-links {
@@ -268,6 +269,14 @@ footer {
 
     .hero-content p {
         font-size: 1.2rem;
+    }
+
+    .navbar {
+        padding: 0.6rem 1rem;
+    }
+
+    .logo h1 {
+        font-size: 1.5rem;
     }
 }
 
