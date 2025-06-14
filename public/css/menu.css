@@ -1,17 +1,17 @@
 /* General Menu Page Styles */
 .menu-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Further increased for larger desktop/tablet base */
-    gap: 1.2rem; /* Slightly increased gap */
-    padding: 2rem; /* Slightly increased padding */
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Increased for larger items */
+    gap: 1.5rem; /* Increased gap */
+    padding: 2.5rem; /* Increased padding */
     max-width: 1200px;
     margin: 2rem auto;
 }
 
 .menu-item {
     background-color: #fff;
-    border-radius: 8px; /* Slightly larger border-radius */
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15); /* Slightly stronger shadow */
+    border-radius: 10px; /* Larger border-radius */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.18); /* Stronger shadow for more prominence */
     overflow: hidden;
     text-align: center;
     display: flex;
@@ -21,20 +21,21 @@
 }
 
 .menu-item:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px); /* More pronounced hover effect */
 }
 
 .menu-item img {
     width: 100%;
-    height: 150px; /* Further increased fixed height for images */
+    height: 180px; /* Increased fixed height for images */
     object-fit: cover; /* Ensure image covers the area */
-    background-color: #f5f5f5; /* Slightly darker background for images */
-    border-bottom: 1px solid #eee;
-    padding: 8px; /* Increased padding around image */
+    background-color: #f0f0f0; /* Slightly darker background for images */
+    border-bottom: 2px solid #ddd; /* Thicker border for bolder look */
+    padding: 10px; /* Increased padding around image */
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.1); /* Inner shadow for depth */
 }
 
 .menu-item-content {
-    padding: 0.8rem; /* Increased padding */
+    padding: 1.2rem; /* Increased padding */
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -45,11 +46,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 0.5rem; /* Increased margin */
+    margin-bottom: 0.8rem; /* Increased margin */
 }
 
 .menu-item-title {
-    font-size: 1rem; /* Slightly increased font size */
+    font-size: 1.15rem; /* Increased font size */
     font-weight: bold;
     color: #333;
     margin: 0;
@@ -60,40 +61,40 @@
 }
 
 .menu-item-price {
-    font-size: 0.95rem; /* Slightly increased font size */
+    font-size: 1.1rem; /* Increased font size */
     color: #e74c3c;
     font-weight: bold;
-    margin-top: 0.25rem; /* Slightly increased top margin */
+    margin-top: 0.4rem; /* Increased top margin */
 }
 
 /* Responsive adjustments for mobile */
 @media (max-width: 768px) {
     .menu-container {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Increased grid for mobile */
-        gap: 0.8rem; /* Increased gap for mobile */
-        padding: 0.8rem; /* Increased padding for mobile */
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* Increased grid for mobile */
+        gap: 1rem; /* Increased gap for mobile */
+        padding: 1rem; /* Increased padding for mobile */
     }
 
     .menu-item {
-        border-radius: 6px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.12); /* Adjusted shadow */
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15); /* Adjusted shadow */
     }
 
     .menu-item img {
-        height: 110px; /* Increased image height for mobile */
-        padding: 5px;
+        height: 140px; /* Increased image height for mobile */
+        padding: 8px;
     }
 
     .menu-item-content {
-        padding: 0.4rem; /* Increased padding for mobile */
+        padding: 0.8rem; /* Increased padding for mobile */
     }
 
     .menu-item-title {
-        font-size: 0.85rem;
+        font-size: 1rem;
     }
 
     .menu-item-price {
-        font-size: 0.8rem;
-        margin-top: 0.15rem;
+        font-size: 0.95rem;
+        margin-top: 0.25rem;
     }
 } 

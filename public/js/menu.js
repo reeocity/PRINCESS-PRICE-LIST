@@ -55,7 +55,11 @@ class MenuManager {
 
     createMenuItemHTML(item) {
         // Format price with comma for thousands and Nigerian Naira symbol
-        const formattedPrice = new Intl.NumberFormat('en-NG').format(item.price);
+        const formattedPrice = new Intl.NumberFormat('en-NG', {
+            style: 'currency',
+            currency: 'NGN',
+            minimumFractionDigits: 2 // Ensure two decimal places for currency
+        }).format(item.price);
 
         return `
             <div class="menu-item">
@@ -63,7 +67,7 @@ class MenuManager {
                 <div class="menu-item-content">
                     <div class="menu-item-header">
                         <h3 class="menu-item-title">${item.name}</h3>
-                        <span class="menu-item-price">₦${formattedPrice}</span>
+                        <span class="menu-item-price">${formattedPrice}</span>
                     </div>
                     <p class="menu-item-description">${item.description}</p>
                     <span class="menu-item-category">${item.category}</span>
