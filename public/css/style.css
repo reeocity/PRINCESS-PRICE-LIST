@@ -69,7 +69,7 @@ body {
 /* Hero Section */
 .hero {
     height: 100vh;
-    background: linear-gradient(rgba(27,43,68,0.7), rgba(27,43,68,0.7)), url('../../assett/img/frontview.PNG');
+    background: linear-gradient(rgba(27,43,68,0.7), rgba(27,43,68,0.7)), url('https://res.cloudinary.com/drca5v7w8/image/upload/v1749914351/frontview_ys3u64.png');
     background-size: cover;
     background-position: center;
     display: flex;
