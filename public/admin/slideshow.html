@@ -1,0 +1,101 @@
+clear
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Slideshow - Admin</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .image-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .preview-item {
+            position: relative;
+            border: 1px solid #ddd;
+            padding: 5px;
+            border-radius: 4px;
+        }
+        .preview-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        .preview-item .remove-preview {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .preview-item .caption-input {
+            width: 100%;
+            margin-top: 5px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <nav class="admin-nav">
+            <div class="admin-nav-header">
+                <h2>Admin Panel</h2>
+            </div>
+            <ul class="admin-nav-links">
+                <li><a href="/admin/dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="/admin/outlets.html"><i class="fas fa-store"></i> Outlets</a></li>
+                <li><a href="/admin/items.html"><i class="fas fa-utensils"></i> Items</a></li>
+                <li><a href="/admin/import-items.html"><i class="fas fa-file-import"></i> Import Items</a></li>
+                <li><a href="/admin/slideshow.html" class="active"><i class="fas fa-images"></i> Slideshow</a></li>
+                <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </nav>
+
+        <main class="admin-main">
+            <h1>Manage Slideshow</h1>
+            <p>Upload and manage images for the public slideshow.</p>
+
+            <section class="admin-section">
+                <h2>Upload New Images</h2>
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="images">Select Images:</label>
+                        <input type="file" id="images" name="images" accept="image/*" multiple required>
+                        <small>You can select multiple images at once</small>
+                    </div>
+                    <div id="imagePreview" class="image-preview">
+                        <!-- Image previews will be shown here -->
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="margin-top: 15px;">Upload All Images</button>
+                </form>
+            </section>
+
+            <section class="admin-section">
+                <h2>Current Slideshow Images</h2>
+                <div id="slideshowList">
+                    <!-- Slideshow images will be loaded here dynamically -->
+                    <p>Loading slideshow images...</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/js/slideshow-admin.js"></script>
+</body>
+</html> 

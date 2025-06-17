@@ -88,6 +88,8 @@ app.use('/api/outlets', require('./routes/outlets'));
 console.log('/api/outlets route mounted.');
 app.use('/api/users', require('./routes/users'));
 console.log('/api/users route mounted.');
+app.use('/api/slideshow', require('./routes/slideshow'));
+console.log('/api/slideshow route mounted.');
 
 // Serve index.html for all other routes
 app.get('*', (req, res) => {
