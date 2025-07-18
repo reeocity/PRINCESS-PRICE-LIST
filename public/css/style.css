@@ -293,6 +293,12 @@ footer {
 
 /* Responsive Design */
 @media screen and (max-width: 768px) {
+    body {
+        padding-top: 150px;
+    }
+    main {
+        margin-top: 0 !important;
+    }
     .nav-links {
         position: absolute;
         right: 0;
@@ -328,11 +334,16 @@ footer {
     }
 
     .navbar {
-        padding: 0.6rem 1rem;
+        padding: 0.3rem 0.5rem;
+        min-height: 56px;
     }
 
     .logo h1 {
         font-size: 1.5rem;
+    }
+    .logo-img {
+        height: 28px;
+        margin-right: 8px;
     }
 }
 
@@ -357,6 +368,7 @@ main {
     margin: 2rem auto;
     max-width: 1200px;
     padding: 2rem;
+
 }
 
 .btn, button.btn {
@@ -382,7 +394,7 @@ main {
         gap: 1.5rem;
     }
     main {
-        padding: 1rem;
+        margin-top: 0 !important;
     }
 }
 
@@ -403,6 +415,7 @@ main {
     main {
         margin: 1rem;
         padding: 0.5rem;
+        margin-top: 0 !important;
     }
 }
 
