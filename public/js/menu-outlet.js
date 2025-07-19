@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <h3 class="menu-item-title">${item.name}</h3>
                         ${(() => {
                             const outletPrice = item.outletPrices.find(op => op.outlet._id === outletId);
-                            return `<span class="menu-item-price">₦${outletPrice ? outletPrice.price : 'N/A'}</span>`;
+                            return `<span class="menu-item-price">₦${outletPrice ? Number(outletPrice.price).toLocaleString('en-NG') : 'N/A'}</span>`;
                         })()}
                     </div>
                 </div>

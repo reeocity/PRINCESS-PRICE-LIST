@@ -53,7 +53,7 @@ function renderItems(items) {
                 <h3 style="font-size: 1rem; margin: 0.5rem 0 0.3rem 0;">${item.name}</h3>
                 <div class="outlet-prices" style="margin-bottom: 0.5rem;">
                     ${item.outletPrices.map(op => `
-                        <p style=\"margin:0;font-size:0.8rem;\"><b>${op.outlet.name}:</b> ₦${op.price}</p>
+                        <p style=\"margin:0;font-size:0.8rem;\"><b>${op.outlet.name}:</b> ₦${Number(op.price).toLocaleString('en-NG')}</p>
                     `).join('')}
                 </div>
                 <div class="item-actions" style="justify-content: center;">
