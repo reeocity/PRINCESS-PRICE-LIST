@@ -15,6 +15,7 @@ async function fetchItemsAndOutlets() {
 
 // Create outlet price input group
 function createOutletPriceInput(outlets, outletId = '', price = '') {
+    
     const div = document.createElement('div');
     div.className = 'outlet-price-group';
     div.innerHTML = `
@@ -46,16 +47,16 @@ function addOutletPrice(outlets) {
 function renderItems(items) {
     const list = document.getElementById('itemsList');
     list.innerHTML = items.map(item => `
-        <div class="item-card">
-            <img src="${item.image}" alt="${item.name}">
-            <div>
-                <h3>${item.name}</h3>
-                <div class="outlet-prices">
+        <div class="item-card medium-grid">
+            <img src="${item.image}" alt="${item.name}" style="width: 120px; height: 120px; object-fit: cover; margin: 0.5rem auto; display: block; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+            <div style="padding: 0.5rem 0; text-align: center;">
+                <h3 style="font-size: 1rem; margin: 0.5rem 0 0.3rem 0;">${item.name}</h3>
+                <div class="outlet-prices" style="margin-bottom: 0.5rem;">
                     ${item.outletPrices.map(op => `
-                        <p><b>${op.outlet.name}:</b> ₦${op.price}</p>
+                        <p style=\"margin:0;font-size:0.8rem;\"><b>${op.outlet.name}:</b> ₦${op.price}</p>
                     `).join('')}
                 </div>
-                <div class="item-actions">
+                <div class="item-actions" style="justify-content: center;">
                     <button class="edit-btn" onclick="editItem('${item._id}')">Edit</button>
                     <button class="delete-btn" onclick="deleteItem('${item._id}')">Delete</button>
                 </div>
